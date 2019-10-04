@@ -11,11 +11,11 @@ url =  'http://127.0.0.1:5000/';
 
 @app.route("/", methods=['GET','POST'])
 def hello():
-  if request.method == 'GET':
-    print('GET: failure')
   if request.method == 'POST':
-    print('POST: success', request.get_json())
-  print('no request method passed')
+    print('POST request: ', request.get_json())
+    result = request.get_json()
+    print(jsonify(result), 'is what I am sending to the FE' )
+    return jsonify(result)
   return render_template('index.html')
 
 

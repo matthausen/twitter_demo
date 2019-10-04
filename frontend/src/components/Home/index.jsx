@@ -93,22 +93,26 @@ export default function Dashboard() {
 
   const apiEndpoint = 'http://127.0.0.1:5000/';
 
+  const config = {
+    header: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
+  }
+
   const data = {
     tweet: values.tweet
   };
 
-  const config = {
-    header: {
-      'Content-Type': 'application/json'
-    }
-  }
-
   async function sendTweet() {
-    const res = await axios.post(apiEndpoint, data, config)
+    await axios.post(apiEndpoint, data, config)
       .then(res => {
         setResponse(res.data);
-        console.log(response);
       });
+  }
+
+  if (response) {
+    console.log(response.tweet);
   }
 
   const handleDrawerOpen = () => {
@@ -120,7 +124,6 @@ export default function Dashboard() {
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
-    sendTweet();
   };
 
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -184,15 +187,23 @@ export default function Dashboard() {
                     margin="normal"
                   />
                 </form>
-                <Button variant="contained" color="primary" className={classes.button}>
-                  Primary
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  type="submit"
+                  onClick={sendTweet}
+                >
+                  Search
                 </Button>
               </Paper>
             </Grid>
             {/* Recent Deposits */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <Deposits />
+                <Deposits
+                  tweet={response}
+                />
               </Paper>
             </Grid>
             {/* Recent Orders */}
