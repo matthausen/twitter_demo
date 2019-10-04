@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -105,7 +106,32 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
+  const [response, setResponse] = useState({});
+
+  const apiEndpoint = 'http://127.0.0.1:5000/';
+
+  useEffect(() => {
+    sendrequest();
+  }, []);
+
+  const data = {
+    tweet: 'military'
+  };
+
+  const config = {
+    header: {
+      'Content-Type': 'application/json'
+    }
+  }
+
+  async function sendrequest() {
+    const res = await axios.post(apiEndpoint, data, config);
+    setResponse(res.data);
+  }
+
+  console.log('Response: ', response);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };

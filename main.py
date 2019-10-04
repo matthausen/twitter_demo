@@ -12,9 +12,10 @@ url =  'http://127.0.0.1:5000/';
 @app.route("/", methods=['GET','POST'])
 def hello():
   if request.method == 'GET':
-    print('failure')
+    print('GET: failure')
+    print(request.method)
   if request.method == 'POST':
-    print('success')
+    print('POST: success', request.get_json())
   print('no request method passed')
   return render_template('index.html')
 
