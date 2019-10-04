@@ -7,14 +7,15 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -29,33 +30,11 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
   menuButton: {
     marginRight: 36,
+  },
+  button: {
+    margin: theme.spacing(1),
   },
   menuButtonHidden: {
     display: 'none',
@@ -107,16 +86,15 @@ const useStyles = makeStyles(theme => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState();
+  const [values, setValues] = useState({
+    tweet: ''
+  });
 
   const apiEndpoint = 'http://127.0.0.1:5000/';
 
-  useEffect(() => {
-    sendrequest();
-  }, []);
-
   const data = {
-    tweet: 'military'
+    tweet: values.tweet
   };
 
   const config = {
@@ -125,12 +103,13 @@ export default function Dashboard() {
     }
   }
 
-  async function sendrequest() {
-    const res = await axios.post(apiEndpoint, data, config);
-    setResponse(res.data);
+  async function sendTweet() {
+    const res = await axios.post(apiEndpoint, data, config)
+      .then(res => {
+        setResponse(res.data);
+        console.log(response);
+      });
   }
-
-  console.log('Response: ', response);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -138,6 +117,12 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+    sendTweet();
+  };
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -155,7 +140,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            Bench Twitter
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -188,7 +173,20 @@ export default function Dashboard() {
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                <Chart />
+                {/* <Chart /> */}
+                <form className={classes.container} noValidate autoComplete="off">
+                  <TextField
+                    id="standard-tweet"
+                    label="# Tweet"
+                    className={classes.textField}
+                    value={values.tweet}
+                    onChange={handleChange('tweet')}
+                    margin="normal"
+                  />
+                </form>
+                <Button variant="contained" color="primary" className={classes.button}>
+                  Primary
+                </Button>
               </Paper>
             </Grid>
             {/* Recent Deposits */}

@@ -13,7 +13,6 @@ url =  'http://127.0.0.1:5000/';
 def hello():
   if request.method == 'GET':
     print('GET: failure')
-    print(request.method)
   if request.method == 'POST':
     print('POST: success', request.get_json())
   print('no request method passed')
