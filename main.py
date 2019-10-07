@@ -13,7 +13,7 @@ url =  'http://127.0.0.1:5000/';
 
 
 @app.route("/", methods=['GET','POST'])
-def hello():
+def fetch():
   if request.method == 'POST':
     print('POST request: ', request.get_json())
     tweet = request.get_json()
