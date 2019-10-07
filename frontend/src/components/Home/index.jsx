@@ -20,9 +20,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './chart';
-import Deposits from './deposits';
-import Orders from './orders';
+import Summary from './summary';
+import Tweets from './tweets';
 
 const drawerWidth = 240;
 
@@ -198,18 +197,20 @@ export default function Dashboard() {
                 </Button>
               </Paper>
             </Grid>
-            {/* Recent Deposits */}
+            {/* Summary */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <Deposits
+                <Summary
                   tweet={response}
                 />
               </Paper>
             </Grid>
-            {/* Recent Orders */}
+            {/* Recent Tweets */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Orders />
+                <Tweets
+                  tweet={response}
+                />
               </Paper>
             </Grid>
           </Grid>
