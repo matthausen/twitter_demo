@@ -16,11 +16,13 @@ print(user.name)
 print(user.description)
 print(user.location)
 
-''' for follower in tweepy.Cursor(api.followers).items():
-    follower.follow() '''
 
-def call(): 
-    print('Module imported')
+def timeline():
+    followers = []
+    for follower in tweepy.Cursor(api.followers).items():
+        followers.append(follower.name)
+    return(followers)
+
 
 def search(query):
     tweet_list = [];

@@ -21,7 +21,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Summary from './summary';
-import Tweets from './tweets';
+import Search from './search';
+import TimeLine from './Timeline';
 
 const drawerWidth = 240;
 
@@ -175,7 +176,6 @@ export default function Dashboard() {
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                {/* <Chart /> */}
                 <form className={classes.container} noValidate autoComplete="off">
                   <TextField
                     id="standard-tweet"
@@ -208,7 +208,15 @@ export default function Dashboard() {
             {/* Recent Tweets */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Tweets
+                <Search
+                  tweet={response}
+                />
+              </Paper>
+            </Grid>
+            {/* TimeLine */}
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <TimeLine
                   tweet={response}
                 />
               </Paper>
