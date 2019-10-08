@@ -14,7 +14,13 @@ url =  'http://127.0.0.1:5000/';
 
 @app.route("/", methods=['GET','POST'])
 def find():
-  fetch()
+  if request.method == 'GET':
+    followers = twitter_adarga.fetch_followers()
+    friends = twitter_adarga.fetch_following()
+    print(jsonify(followers))
+    print(jsonify(friends))
+    return (jsonify(followers), jsonify(friends))
+
   if request.method == 'POST':
     tweet = request.get_json()
     tweetStr = json.dumps(tweet)
@@ -22,17 +28,10 @@ def find():
     query = data['tweet']
 
     response = twitter_adarga.search(query)
-    followers = jsonify(twitter_adarga.timeline())
 
     return jsonify(response)
-  return render_template('index.html', data=jsonify(twitter_adarga.timeline()))
+  return render_template('index.html', followers=followers)
 
-
-def fetch():
-  if request.method == 'GET':
-    response = twitter_adarga.timeline()
-    print(response)
-    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(use_reloader=True, port=5000, threaded=True)

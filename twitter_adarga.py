@@ -17,11 +17,17 @@ print(user.description)
 print(user.location)
 
 
-def timeline():
+def fetch_followers():
     followers = []
     for follower in tweepy.Cursor(api.followers).items():
         followers.append(follower.name)
     return(followers)
+
+def fetch_following():
+    friends = [];
+    for following in tweepy.Cursor(api.friends).items():
+        friends.append(following.name)
+    return(friends)
 
 
 def search(query):

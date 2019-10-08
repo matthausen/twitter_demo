@@ -29,34 +29,31 @@ export default function TimeLine(props) {
     await axios.get(apiEndpoint)
       .then(res => {
         setFollowers(res.data);
-        console.log(res, 'are my followers')
-        console.log(window.data)
       })
   }
-  const tweet = '';
 
   return (
     <React.Fragment>
       <Title>Your TimeLine</Title>
-      {tweet ? (
+      {followers ? (
         <div>
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell>Tweet</TableCell>
+                <TableCell>Followers</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {tweet.map((t, index) => (
+              {followers.map((f, index) => (
                 <TableRow key={index}>
-                  <TableCell>{t}</TableCell>
+                  <TableCell>{f}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
           <div className={classes.seeMore}>
             <Typography color="primary">
-              See more tweets
+              See more followers
           </Typography>
           </div>
         </div>
