@@ -5,6 +5,7 @@ import json
 from json import dumps
 from requests import post, get
 import twitter_adarga
+import adarga_sentiment
 
 
 app = Flask(__name__, static_folder="frontend/build/static", template_folder="frontend/build")
@@ -16,7 +17,7 @@ url =  'http://127.0.0.1:5000/';
 def find():
   if request.method == 'GET':
     followers = twitter_adarga.fetch_followers()
-    friends = twitter_adarga.fetch_following()
+    friends = twitter_adarga.fetch_friends()
     print(jsonify(followers))
     print(jsonify(friends))
     return (jsonify(followers), jsonify(friends))
@@ -28,8 +29,9 @@ def find():
     query = data['tweet']
 
     response = twitter_adarga.search(query)
+    sentiment = adarga_sentiment.twitter_sentiment(query)
 
-    return jsonify(response)
+    return (jsonify(response, sentiment))
   return render_template('index.html', followers=followers)
 
 

@@ -24,8 +24,8 @@ export default function TimeLine(props) {
   const [friends, setFriends] = useState();
 
   useEffect(() => {
-    fetchFollowing();
-    fetchFriends();
+    //fetchFollowing();
+    //fetchFriends();
   }, []);
 
   async function fetchFollowing() {

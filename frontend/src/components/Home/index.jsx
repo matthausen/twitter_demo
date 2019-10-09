@@ -111,10 +111,6 @@ export default function Dashboard() {
       });
   }
 
-  if (response) {
-    console.log(response.tweet);
-  }
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };

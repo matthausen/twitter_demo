@@ -12,10 +12,10 @@ class TwitterClient(object):
 		Class constructor or initialization method. 
 		'''
 		# keys and tokens from the Twitter Dev Console 
-		consumer_key = 'XXXXXXXXXXXXXXXXXXXXXXXX'
-		consumer_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-		access_token = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-		access_token_secret = 'XXXXXXXXXXXXXXXXXXXXXXXXX'
+		consumer_key = 'vsrFwIpc6z4S23wFLfZZY3yd2'
+		consumer_secret = 'vz7bb3kOuQK7YJpq6mxQqddH9qJ0mxpQobb4XVskR3eJSbfcQ9'
+		access_token = '229876182-b7jI9eGYSOuppPaBNrHESqlBPr4iXy9sEYV2nqLy'
+		access_token_secret = 'DH2TE1CVAsD1HN8xQcMSV6tY3YHqpch2yJTPlwjFaAcbO'
 
 		# attempt authentication 
 		try: 
@@ -33,8 +33,7 @@ class TwitterClient(object):
 		Utility function to clean tweet text by removing links, special characters 
 		using simple regex statements. 
 		'''
-		return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) 
-									|(\w+:\/\/\S+)", " ", tweet).split()) 
+		return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t]) |(\w+:\/\/\S+)", " ", tweet).split()) 
 
 	def get_tweet_sentiment(self, tweet): 
 		''' 
@@ -85,36 +84,28 @@ class TwitterClient(object):
 
 		except tweepy.TweepError as e: 
 			# print error (if any) 
-			print("Error : " + str(e)) 
+			print("Error : " + str(e))
 
-def main(): 
-	# creating object of TwitterClient Class 
+
+def twitter_sentiment(query): 
 	api = TwitterClient() 
-	# calling function to get tweets 
-	tweets = api.get_tweets(query = 'Donald Trump', count = 200) 
+	tweets = api.get_tweets(query = query, count = 200) 
 
-	# picking positive tweets from tweets 
 	ptweets = [tweet for tweet in tweets if tweet['sentiment'] == 'positive'] 
-	# percentage of positive tweets 
 	print("Positive tweets percentage: {} %".format(100*len(ptweets)/len(tweets))) 
-	# picking negative tweets from tweets 
 	ntweets = [tweet for tweet in tweets if tweet['sentiment'] == 'negative'] 
-	# percentage of negative tweets 
 	print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
-	# percentage of neutral tweets 
-	print("Neutral tweets percentage: {} % \ 
-		".format(100*len(tweets - ntweets - ptweets)/len(tweets))) 
+	#print("Neutral tweets percentage: {} % ".format(100*len(tweets - ntweets - ptweets)/len(tweets))) 
 
-	# printing first 5 positive tweets 
 	print("\n\nPositive tweets:") 
 	for tweet in ptweets[:10]: 
 		print(tweet['text']) 
 
-	# printing first 5 negative tweets 
 	print("\n\nNegative tweets:") 
 	for tweet in ntweets[:10]: 
 		print(tweet['text']) 
 
-if __name__ == "__main__": 
-	# calling main function 
-	main() 
+	positive = (format(100*len(ptweets)/len(tweets)))
+	negative = (format(100*len(ntweets)/len(tweets)))
+
+	return (positive, negative)

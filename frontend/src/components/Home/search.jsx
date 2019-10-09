@@ -30,7 +30,7 @@ export default function Search(props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {tweet.map((t, index) => (
+              {tweet[0].map((t, index) => (
                 <TableRow key={index}>
                   <TableCell>{t}</TableCell>
                 </TableRow>
