@@ -30,8 +30,9 @@ def find():
 
     response = twitter_adarga.search(query)
     sentiment = adarga_sentiment.twitter_sentiment(query)
+    entities = twitter_adarga.adarga_ner(query)
 
-    return (jsonify(response, sentiment))
+    return (jsonify(response, sentiment, entities))
   return render_template('index.html', followers=followers)
 
 

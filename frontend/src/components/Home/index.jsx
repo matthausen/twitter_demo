@@ -23,6 +23,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Summary from './summary';
 import Search from './search';
 import TimeLine from './Timeline';
+import NER from './NER';
 
 const drawerWidth = 240;
 
@@ -108,6 +109,7 @@ export default function Dashboard() {
     await axios.post(apiEndpoint, data, config)
       .then(res => {
         setResponse(res.data);
+        console.log('response: ', res.data);
       });
   }
 
@@ -213,6 +215,14 @@ export default function Dashboard() {
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <TimeLine
+                  tweet={response}
+                />
+              </Paper>
+            </Grid>
+            {/* Named Entity Recognition */}
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <NER
                   tweet={response}
                 />
               </Paper>
