@@ -88,11 +88,21 @@ export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
   const [response, setResponse] = useState();
+  const [timeline, setTimeline] = useState();
   const [values, setValues] = useState({
     tweet: ''
   });
 
   const apiEndpoint = 'http://127.0.0.1:5000/';
+
+  /* useEffect(() => {
+    fetchTimeline()
+  }, []);
+
+  async function fetchTimeline() {
+    await axios.get(apiEndpoint)
+      .then(res => setTimeline(res.data));
+  } */
 
   const config = {
     header: {
