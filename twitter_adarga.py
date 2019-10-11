@@ -34,8 +34,10 @@ print(user.location)
 
 def fetch_friends():
     friends = []
-    for friend in tweepy.Cursor(api.friends).items():
-        friends.append(friend.name)
+    # to avoid error 88: limit exceeded
+    for i in range(1):
+        for friend in tweepy.Cursor(api.friends).items():
+          friends.append(friend.name)
     return(friends)
 
 def fetch_followers():
@@ -46,7 +48,7 @@ def fetch_followers():
 
 
 def search(query):
-    tweet_list = [];
+    tweet_list = []
     for tweet in api.search(q=query, lang="en", rpp=10):
       tweet_list.append(f"{tweet.user.name}:{tweet.text}")
 
@@ -72,10 +74,10 @@ def adarga_ner(query):
         Counter(items).most_common(3)
 
         sentences = [x for x in tweet.sents]
-        print(sentences, '--------SENTENCES----')
+        #print(sentences, '--------SENTENCES----')
 
-        print(sentences, '#####SENTENCES####')
-        print(len(sentences), '#####LENGTH####')
+        #print(sentences, '#####SENTENCES####')
+        #print(len(sentences), '#####LENGTH####')
 
         [(x.orth_,x.pos_, x.lemma_) for x in [y 
                                             for y
@@ -84,13 +86,12 @@ def adarga_ner(query):
 
         dict([(str(x), x.label_) for x in nlp(str(sentences[0])).ents])
 
-        print('From here the magic happens')
-        print([(x, x.ent_iob_, x.ent_type_) for x in sentences[0]])
+        # print([(x, x.ent_iob_, x.ent_type_) for x in sentences[0]])
 
         html.append(displacy.render(tweet, page=True, style='ent'))
 
-        print(html)
     return html
+
 
 '''
 

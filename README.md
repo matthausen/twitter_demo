@@ -67,3 +67,15 @@ api = tweepy.API(auth, wait_on_rate_limit=True,
 tweets_listener = MyStreamListener(api)
 stream = tweepy.Stream(api.auth, tweets_listener)
 stream.filter(track=["Python", "Django", "Tweepy"], languages=["en"])
+
+
+
+- followers account
+- documentation on search
+- queries and filters
+- bench integration
+
+
+### Search documentation:
+
+https://developer.twitter.com/en/docs/tweets/search/overview

@@ -97,13 +97,13 @@ def twitter_sentiment(query):
 	print("Negative tweets percentage: {} %".format(100*len(ntweets)/len(tweets))) 
 	#print("Neutral tweets percentage: {} % ".format(100*len(tweets - ntweets - ptweets)/len(tweets))) 
 
-	print("\n\nPositive tweets:") 
+	""" print("\n\nPositive tweets:") 
 	for tweet in ptweets[:10]: 
 		print(tweet['text']) 
 
 	print("\n\nNegative tweets:") 
 	for tweet in ntweets[:10]: 
-		print(tweet['text']) 
+		print(tweet['text'])  """
 
 	positive = (format(100*len(ptweets)/len(tweets)))
 	negative = (format(100*len(ntweets)/len(tweets)))

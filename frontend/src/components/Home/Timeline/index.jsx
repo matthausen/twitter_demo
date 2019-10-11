@@ -20,28 +20,17 @@ const apiEndpoint = 'http://127.0.0.1:5000/';
 
 export default function TimeLine(props) {
   const classes = useStyles();
-  const [followers, setFollowers] = useState();
-  const [friends, setFriends] = useState();
-
-  useEffect(() => {
-    //fetchFollowing();
-    //fetchFriends();
-  }, []);
-
-  async function fetchFollowing() {
-    await axios.get(apiEndpoint)
-      .then(res => setFollowers(res.data))
-  }
-
-  async function fetchFriends() {
-    await axios.get(apiEndpoint)
-      .then(res => setFriends(res.data))
-  }
 
   return (
     <React.Fragment>
       <Title>Your TimeLine</Title>
-      {followers ? (
+    </React.Fragment>
+  );
+}
+
+/*
+
+{followers ? (
         <div>
           <Table size="small">
             <TableHead>
@@ -96,6 +85,4 @@ export default function TimeLine(props) {
             No friends
       </div>
         )}
-    </React.Fragment>
-  );
-}
+*/

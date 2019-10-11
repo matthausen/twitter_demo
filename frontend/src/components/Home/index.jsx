@@ -119,7 +119,7 @@ export default function Dashboard() {
     await axios.post(apiEndpoint, data, config)
       .then(res => {
         setResponse(res.data);
-        console.log('response: ', res.data);
+        console.log('Response: ', res.data);
       });
   }
 
